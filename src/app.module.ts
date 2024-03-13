@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ShowController } from './show/show.controller';
 import { ShowModule } from './show/show.module';
+import { TicketModule } from './ticket/ticket.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -45,6 +46,7 @@ const typeOrmModuleOptions = {
     AuthModule,
     UserModule,
     ShowModule,
+    TicketModule,
   ],
   controllers: [ShowController],
   providers: [],
