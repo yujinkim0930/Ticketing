@@ -10,7 +10,6 @@ export class ShowService {
   constructor(
     @InjectRepository(Show)
     private showRepository: Repository<Show>,
-    private readonly jwtService: JwtService,
   ) {}
 
   async findAll(): Promise<Show[]> {

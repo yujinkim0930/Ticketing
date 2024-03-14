@@ -48,7 +48,7 @@ const typeOrmModuleOptions = {
     ShowModule,
     TicketModule,
   ],
-  controllers: [ShowController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
