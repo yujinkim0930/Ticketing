@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { User } from 'src/user/entities/user.entity';
-import { Show } from 'src/show/entities/show.entity';
+import { Schedule } from 'src/show/entities/schedule.entity';
 
 @Entity({
   name: 'tickets',
@@ -22,11 +22,10 @@ export class Ticket {
   @Column('int', { name: 'showId', nullable: false })
   showId: number;
 
-  @ManyToOne(() => User, (user) => user.tickets)
+  @ManyToOne(() => User, (user) => user.tickets, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @ManyToOne(() => Show, (show) => show.tickets)
-  @JoinColumn({ name: 'showId' })
-  show: Show;
+  @ManyToOne((type): typeof Schedule => Schedule, { onDelete: 'CASCADE' })
+  schedule: Schedule;
 }

@@ -1,5 +1,14 @@
 import { Ticket } from 'src/ticket/entities/ticket.entity';
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { ShowCategory } from '../types/show-category.type';
+import { Schedule } from './schedule.entity';
 
 @Entity({
   name: 'shows',
@@ -14,14 +23,11 @@ export class Show {
   @Column({ type: 'varchar', unique: true, nullable: false })
   showInfo: string;
 
-  @Column({ type: 'json', unique: true, nullable: false })
-  showDate: string[];
+  @Column({ type: 'enum', enum: ShowCategory })
+  showCategory: ShowCategory;
 
   @Column({ type: 'varchar', unique: true, nullable: false })
   showPlace: string;
-
-  @Column({ type: 'varchar', unique: true, nullable: false })
-  seat: number;
 
   @Column({ type: 'varchar', unique: true, nullable: false })
   price: number;
@@ -29,9 +35,12 @@ export class Show {
   @Column({ type: 'varchar', unique: true, nullable: false })
   showImg: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
-  showCategory: string;
+  @CreateDateColumn()
+  createdAt: Date;
 
-  @OneToMany(() => Ticket, (ticket) => ticket.show)
-  tickets: Ticket[];
+  @UpdateDateColumn()
+  udatedAt: Date;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.show, { cascade: true })
+  schedules: Schedule[];
 }

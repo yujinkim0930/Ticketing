@@ -4,6 +4,8 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Role } from '../types/userRole.type';
 import { Ticket } from 'src/ticket/entities/ticket.entity';
@@ -23,11 +25,17 @@ export class User {
   @Column({ type: 'varchar', unique: true, nullable: false })
   password: string;
 
-  @Column({ type: 'enum', enum: Role, default: Role.User })
-  role: Role;
-
   @Column({ type: 'int', default: 1000000 })
   point: number;
+
+  @Column()
+  isAdmin: boolean;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  udatedAt: Date;
 
   @OneToMany(() => Ticket, (ticket) => ticket.user)
   tickets: Ticket[];
