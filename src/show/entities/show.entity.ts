@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Ticket } from 'src/ticket/entities/ticket.entity';
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity({
   name: 'shows',
@@ -30,4 +31,7 @@ export class Show {
 
   @Column({ type: 'varchar', unique: true, nullable: false })
   showCategory: string;
+
+  @OneToMany(() => Ticket, (ticket) => ticket.show)
+  tickets: Ticket[];
 }
