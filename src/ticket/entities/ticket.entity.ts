@@ -16,15 +16,15 @@ export class Ticket {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('int', { name: 'userId', nullable: false })
+  @Column('int', { nullable: false })
   userId: number;
 
-  @Column('int', { name: 'showId', nullable: false })
-  showId: number;
+  @Column('int', { nullable: false })
+  scheduleId: number;
 
   @ManyToOne((type) => User, (user) => user.tickets, { onDelete: 'CASCADE' })
   user: User;
 
-  @ManyToOne((type): typeof Schedule => Schedule, { onDelete: 'CASCADE' })
+  @ManyToOne((type) => Schedule, { onDelete: 'CASCADE' })
   schedule: Schedule;
 }
