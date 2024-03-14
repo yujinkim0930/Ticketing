@@ -1,21 +1,25 @@
-import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  UseGuards,
+  Get,
+  Request,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
-import { LoginDto } from './dto/login.dto';
+import { SignupDto } from './dto/signup.dto';
 import { User } from './entities/user.entity';
 import { UserInfo } from 'src/utils/userInfo.decorator';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('signup')
-  async signup(@Body() loginDto: LoginDto) {
-    return await this.userService.signup(
-      loginDto.email,
-      loginDto.nickName,
-      loginDto.password,
-    );
+  async signup(@Body() loginDto: SignupDto) {
+    return await this.userService.signup(loginDto);
   }
 
   @Post('login')
@@ -24,8 +28,12 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('email')
-  getEmail(@UserInfo() user: User) {
-    return { email: user.email, nickName: user.nickName, point: user.point };
+  @Get('profile')
+  async findMe(@Request() req) {
+    const userId = req.user.id;
+
+    const data = await this.userService.findOneById(userId);
+
+    return data;
   }
 }

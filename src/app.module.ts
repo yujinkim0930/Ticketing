@@ -12,6 +12,8 @@ import Joi from 'joi';
 import { User } from './user/entities/user.entity';
 import { Show } from './show/entities/show.entity';
 import { Ticket } from './ticket/entities/ticket.entity';
+import { Seat } from './show/entities/seat.entity';
+import { Schedule } from './show/entities/schedule.entity';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -24,7 +26,7 @@ const typeOrmModuleOptions = {
     host: configService.get('DB_HOST'),
     port: configService.get('DB_PORT'),
     database: configService.get('DB_NAME'),
-    entities: [User],
+    entities: [User, Ticket, Show, Seat, Schedule],
     synchronize: configService.get('DB_SYNC'),
     logging: true,
   }),

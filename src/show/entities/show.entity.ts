@@ -1,10 +1,9 @@
-import { Ticket } from 'src/ticket/entities/ticket.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { ShowCategory } from '../types/show-category.type';
@@ -14,25 +13,25 @@ import { Schedule } from './schedule.entity';
   name: 'shows',
 })
 export class Show {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', unique: true, nullable: false })
   showName: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   showInfo: string;
 
   @Column({ type: 'enum', enum: ShowCategory })
   showCategory: ShowCategory;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   showPlace: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   price: number;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', nullable: false })
   showImg: string;
 
   @CreateDateColumn()

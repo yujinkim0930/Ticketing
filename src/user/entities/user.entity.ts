@@ -22,14 +22,14 @@ export class User {
   @Column({ type: 'varchar', unique: true, nullable: false })
   nickName: string;
 
-  @Column({ type: 'varchar', unique: true, nullable: false })
+  @Column({ type: 'varchar', unique: true, nullable: false, select: false })
   password: string;
 
-  @Column({ type: 'int', default: 1000000 })
+  @Column({ type: 'int' })
   point: number;
 
-  @Column()
-  isAdmin: boolean;
+  @Column({ default: Role.User })
+  role: Role;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -37,6 +37,6 @@ export class User {
   @UpdateDateColumn()
   udatedAt: Date;
 
-  @OneToMany(() => Ticket, (ticket) => ticket.user)
+  @OneToMany((type) => Ticket, (ticket) => ticket.user)
   tickets: Ticket[];
 }

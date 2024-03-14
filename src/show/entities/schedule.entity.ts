@@ -4,7 +4,7 @@ import {
   Entity,
   ManyToOne,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Show } from './show.entity';
@@ -12,7 +12,7 @@ import { Seat } from './seat.entity';
 
 @Entity({ name: 'schedules' })
 export class Schedule {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'int' })
@@ -33,6 +33,6 @@ export class Schedule {
   @ManyToOne(() => Show, (show) => show.schedules, { onDelete: 'CASCADE' })
   show: Show;
 
-  @OneToOne(() => Seat, (seat) => seat.schedule)
+  @OneToOne(() => Seat, (seat) => seat.schedule, { cascade: true })
   seat: Seat;
 }

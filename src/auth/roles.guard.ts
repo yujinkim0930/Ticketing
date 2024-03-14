@@ -1,6 +1,11 @@
 import { Role } from 'src/user/types/userRole.type';
 
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -13,7 +18,9 @@ export class RolesGuard extends AuthGuard('jwt') implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const authenticated = await super.canActivate(context);
     if (!authenticated) {
-      return false;
+      throw new UnauthorizedException({
+        message: '인증 정보가 잘못되었습니다.',
+      });
     }
 
     const requiredRoles = this.reflector.getAllAndOverride<Role[]>('roles', [

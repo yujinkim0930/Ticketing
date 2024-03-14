@@ -22,8 +22,7 @@ export class Ticket {
   @Column('int', { name: 'showId', nullable: false })
   showId: number;
 
-  @ManyToOne(() => User, (user) => user.tickets, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
+  @ManyToOne((type) => User, (user) => user.tickets, { onDelete: 'CASCADE' })
   user: User;
 
   @ManyToOne((type): typeof Schedule => Schedule, { onDelete: 'CASCADE' })
